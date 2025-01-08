@@ -1,81 +1,48 @@
 package org.example.Information;
-import java.util.*;
+
+import java.util.Scanner;
 
 public class CoworkingPlace {
     private int id;
     private String name;
-    private boolean isAvailable;
-    private double price;
-    private int roomCount;
+    private boolean available;
 
-    public CoworkingPlace(Scanner scanner) {
-        System.out.print("Введите ID: ");
-        this.id = scanner.nextInt();
-
-        scanner.nextLine(); // Считывание символа новой строки после nextInt()
-
-        System.out.print("Введите название: ");
-        this.name = scanner.nextLine();
-
-        System.out.print("Свободное место? (true/false): ");
-        this.isAvailable = scanner.nextBoolean();
-
-        System.out.print("Введите цену: ");
-        this.price = scanner.nextDouble();
-
-        System.out.print("Введите количество комнат: ");
-        this.roomCount = scanner.nextInt();
+    // Конструктор для создания объекта с параметрами
+    public CoworkingPlace(int id, String name, boolean available) {
+        this.id = id;
+        this.name = name;
+        this.available = available;
     }
 
-    // Геттеры и сеттеры
+    // Конструктор для ввода через Scanner
+    public CoworkingPlace(Scanner scanner) {
+        System.out.print("Введите ID рабочего места: ");
+        this.id = scanner.nextInt();
+        scanner.nextLine();  // Очистка буфера
+        System.out.print("Введите название рабочего места: ");
+        this.name = scanner.nextLine();
+        System.out.print("Доступность рабочего места (true/false): ");
+        this.available = scanner.nextBoolean();
+    }
+
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public boolean isAvailable() {
-        return isAvailable;
+        return available;
     }
 
     public void setAvailable(boolean available) {
-        isAvailable = available;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public int getRoomCount() {
-        return roomCount;
-    }
-
-    public void setRoomCount(int roomCount) {
-        this.roomCount = roomCount;
+        this.available = available;
     }
 
     @Override
     public String toString() {
-        return "CoworkingPlace{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", isAvailable=" + isAvailable +
-                ", price=" + price +
-                ", roomCount=" + roomCount +
-                '}';
+        return "ID: " + id + ", Название: " + name + ", Доступно: " + available;
     }
 }
