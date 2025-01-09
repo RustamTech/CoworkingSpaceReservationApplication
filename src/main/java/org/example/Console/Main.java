@@ -1,11 +1,10 @@
 package org.example.Console;
+
 import org.example.Actions.AdminMethods;
 import org.example.Actions.UserMethods;
-import org.example.Information.AdminInfo;
 import org.example.Information.CoworkingPlace;
-import org.example.Information.UserInfo;
 
-import java.util.*;
+import java.util.Scanner;
 
 class Main {
     public static void main(String[] args) {
@@ -59,25 +58,38 @@ class Main {
             scanner.nextLine();  // Очистка буфера
 
             switch (adminChoice) {
-                case 1: // Регистрация администратора
-                    adminMethods.registerAdmin(scanner);
-                    break;
-                case 2: // Вход администратора
-                    adminMethods.loginAdmin(scanner);
-                    break;
-                case 3: // Добавить рабочее место
-                    adminMethods.addCoworkingPlace(scanner);
-                    break;
-                case 4: // Удалить рабочее место
-                    adminMethods.removeCoworkingPlace(scanner);
-                    break;
-                case 5: // Посмотреть все рабочие места
-                    System.out.println("\nВсе рабочие места:");
-                    for (CoworkingPlace place : adminMethods.getCoworkingList()) {
-                        System.out.println(place);
+                case 1:
+                    try {
+                        adminMethods.registerAdmin(scanner);
+                    } catch (Exception e) {
+                        System.out.println("Ошибка при регистрации администратора: " + e.getMessage());
                     }
                     break;
-                case 6: // Выход в главное меню
+                case 2:
+                    try {
+                        adminMethods.loginAdmin(scanner);
+                    } catch (Exception e) {
+                        System.out.println("Ошибка при входе администратора: " + e.getMessage());
+                    }
+                    break;
+                case 3:
+                    try {
+                        adminMethods.addCoworkingPlace(scanner);
+                    } catch (Exception e) {
+                        System.out.println("Ошибка при добавлении рабочего места: " + e.getMessage());
+                    }
+                    break;
+                case 4:
+                    try {
+                        adminMethods.removeCoworkingPlace(scanner);
+                    } catch (Exception e) {
+                        System.out.println("Ошибка при удалении рабочего места: " + e.getMessage());
+                    }
+                    break;
+                case 5:
+                    adminMethods.showAllCoworkingPlaces();
+                    break;
+                case 6:
                     return;
                 default:
                     System.out.println("Неверный выбор. Попробуйте снова.");
@@ -100,26 +112,42 @@ class Main {
             scanner.nextLine();  // Очистка буфера
 
             switch (userChoice) {
-                case 1: // Регистрация пользователя
-                    userMethods.registerUser(scanner);
+                case 1:
+                    try {
+                        userMethods.registerUser(scanner);
+                    } catch (Exception e) {
+                        System.out.println("Ошибка при регистрации пользователя: " + e.getMessage());
+                    }
                     break;
-                case 2: // Вход пользователя
-                    userMethods.loginUser(scanner);
+                case 2:
+                    try {
+                        userMethods.loginUser(scanner);
+                    } catch (Exception e) {
+                        System.out.println("Ошибка при входе пользователя: " + e.getMessage());
+                    }
                     break;
-                case 3: // Сделать резервирование
-                    userMethods.makeReservations(scanner);
+                case 3:
+                    try {
+                        userMethods.makeReservations(scanner);
+                    } catch (Exception e) {
+                        System.out.println("Ошибка при резервировании рабочего места: " + e.getMessage());
+                    }
                     break;
-                case 4: // Посмотреть доступные места
+                case 4:
                     userMethods.viewAllCoworkingPlaces();
                     break;
-                case 5: // Отменить резервирование
-                    userMethods.cancelReservations(scanner);
+                case 5:
+                    try {
+                        userMethods.cancelReservations(scanner);
+                    } catch (Exception e) {
+                        System.out.println("Ошибка при отмене резервирования: " + e.getMessage());
+                    }
                     break;
-                case 6: // Выход в главное меню
+                case 6:
                     return;
                 default:
                     System.out.println("Неверный выбор. Попробуйте снова.");
             }
         }
-     }
+    }
 }
