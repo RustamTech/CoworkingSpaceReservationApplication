@@ -101,7 +101,7 @@ public class UserMethods {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] userData = line.split(";");
-                if (userData.length == 3) {
+                if (userData.length == 3) { // length == 3 meaning that our userData accepted all 3 parameters like name surname and password
                     String name = userData[0];
                     String surname = userData[1];
                     int password = Integer.parseInt(userData[2]);

@@ -10,11 +10,11 @@ class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Создаем объекты для администраторских и пользовательских методов
+        // Creating user and admins methods
         AdminMethods adminMethods = new AdminMethods();
         UserMethods userMethods = new UserMethods(adminMethods);
 
-        // Приветствие
+        // Greetings
         System.out.println("Добро пожаловать в систему бронирования рабочего места!");
 
         while (true) {
@@ -43,7 +43,7 @@ class Main {
         }
     }
 
-    // Меню администратора
+    // This is menu of admin
     public static void adminMenu(Scanner scanner, AdminMethods adminMethods) {
         while (true) {
             System.out.println("\nМеню администратора:");
@@ -52,10 +52,12 @@ class Main {
             System.out.println("3. Добавить новое рабочее место");
             System.out.println("4. Удалить рабочее место");
             System.out.println("5. Посмотреть все рабочие места");
-            System.out.println("6. Выход в главное меню");
+            System.out.println("6. Посмотреть все свободные места");
+            System.out.println("7. Посмотреть все занятые места");
+            System.out.println("8. Выход в главное меню");
             System.out.print("Ваш выбор: ");
             int adminChoice = scanner.nextInt();
-            scanner.nextLine();  // Очистка буфера
+            scanner.nextLine();
 
             switch (adminChoice) {
                 case 1:
@@ -90,6 +92,12 @@ class Main {
                     adminMethods.showAllCoworkingPlaces();
                     break;
                 case 6:
+                    adminMethods.showFreeSpaces();
+                    break;
+                case 7:
+                    adminMethods.showBookedSpaces();
+                    break;
+                case 8:
                     return;
                 default:
                     System.out.println("Неверный выбор. Попробуйте снова.");
@@ -97,7 +105,7 @@ class Main {
         }
     }
 
-    // Меню пользователя
+    // This is menu of user
     public static void userMenu(Scanner scanner, UserMethods userMethods) {
         while (true) {
             System.out.println("\nМеню пользователя:");
