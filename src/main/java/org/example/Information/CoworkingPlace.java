@@ -7,21 +7,21 @@ public class CoworkingPlace {
     private String name;
     private boolean available;
 
-    // Конструктор для создания объекта с параметрами
+    // Constructor for creating an object with parameters
     public CoworkingPlace(int id, String name, boolean available) {
         this.id = id;
         this.name = name;
         this.available = available;
     }
 
-    // Конструктор для ввода через Scanner
+    // Constructor for input via Scanner
     public CoworkingPlace(Scanner scanner) {
-        System.out.print("Введите ID рабочего места: ");
+        System.out.print("Enter coworking space ID: ");
         this.id = scanner.nextInt();
-        scanner.nextLine();  // Очистка буфера
-        System.out.print("Введите название рабочего места: ");
+        scanner.nextLine();  // Clear the buffer
+        System.out.print("Enter coworking space name: ");
         this.name = scanner.nextLine();
-        System.out.print("Доступность рабочего места (true/false): ");
+        System.out.print("Is the coworking space available (true/false): ");
         this.available = scanner.nextBoolean();
     }
 
@@ -43,6 +43,6 @@ public class CoworkingPlace {
 
     @Override
     public String toString() {
-        return "ID: " + id + ", Название: " + name + ", Доступно: " + available;
+        return "ID: " + id + ", Name: " + name + ", Available: " + available;
     }
 }

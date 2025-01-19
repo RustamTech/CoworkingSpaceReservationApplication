@@ -12,13 +12,13 @@ import java.util.Scanner;
 public class AdminMethods {
     private ArrayList<AdminInfo> adminList = new ArrayList<>();
     private ArrayList<CoworkingPlace> coworkingList = new ArrayList<>();
-    private boolean isAuthorized = false;  // point which mean that out admin has passed registration and login
+    private boolean isAuthorized = false;  // point which means that our admin has passed registration and login
 
     public void registerAdmin(Scanner scanner) {
-        System.out.println("Регистрация нового администратора:");
+        System.out.println("Registering a new administrator:");
         AdminInfo newAdmin = new AdminInfo(scanner);
         adminList.add(newAdmin);
-        System.out.println("Администратор добавлен: " + newAdmin);
+        System.out.println("Administrator added: " + newAdmin);
     }
 
     public ArrayList<CoworkingPlace> getCoworkingList() {
@@ -27,87 +27,87 @@ public class AdminMethods {
 
     public void showAllAdmins() throws CustomException.EmptyAdminList {
         if (adminList.isEmpty()) {
-            System.out.println("Список администраторов пуст. Пройдите регистрацию.");
-            throw new CustomException.EmptyAdminList("Список администраторов пуст.");
+            System.out.println("The administrator list is empty. Please register first.");
+            throw new CustomException.EmptyAdminList("The administrator list is empty.");
         }
 
-        System.out.println("Список всех администраторов:");
+        System.out.println("List of all administrators:");
         for (int i = 0; i < adminList.size(); i++) {
             System.out.println((i + 1) + ". " + adminList.get(i));
         }
     }
 
     public void loginAdmin(Scanner scanner) throws CustomException.NotAuthorizedUser {
-        System.out.println("Авторизация администратора:");
+        System.out.println("Administrator login:");
 
         if (adminList.isEmpty()) {
-            System.out.println("Список администраторов пуст. Сначала пройдите регистрацию.");
+            System.out.println("The administrator list is empty. Please register first.");
             return;
         }
 
-        System.out.print("Введите имя: ");
+        System.out.print("Enter name: ");
         String name = scanner.nextLine();
 
-        System.out.print("Введите пароль: ");
+        System.out.print("Enter password: ");
         int password = scanner.nextInt();
-        scanner.nextLine();  // Очистка буфера
+        scanner.nextLine();  // Clear the buffer
         boolean isAuthenticated = false;
 
         for (AdminInfo admin : adminList) {
             if (admin.getName().equals(name) && admin.getPassword() == password) {
-                System.out.println("Добро пожаловать, " + name + "!");
-                isAuthorized = true;  // in this case we change out point
+                System.out.println("Welcome, " + name + "!");
+                isAuthorized = true;  // in this case we change our point
                 isAuthenticated = true;
                 break;
             }
         }
 
         if (!isAuthenticated) {
-            throw new CustomException.NotAuthorizedUser("Ошибка авторизации.");
+            throw new CustomException.NotAuthorizedUser("Authorization error.");
         }
     }
 
     public void addCoworkingPlace(Scanner scanner) {
-        if (!isAuthorized) {  // Проверка на авторизацию
-            System.out.println("Ошибка: для выполнения этой операции нужно пройти авторизацию.");
+        if (!isAuthorized) {  // Authorization check
+            System.out.println("Error: You must be authorized to perform this operation.");
             return;
         }
 
-        System.out.println("Добавление нового рабочего места:");
+        System.out.println("Adding a new coworking space:");
         CoworkingPlace newCoworkingPlace = new CoworkingPlace(scanner);
         coworkingList.add(newCoworkingPlace);
-        System.out.println("Вы успешно добавили новое рабочее место.");
+        System.out.println("You have successfully added a new coworking space.");
     }
 
     public void showAllCoworkingPlaces() {
         if (!isAuthorized) {
-            System.out.println("Ошибка: для выполнения этой операции нужно пройти авторизацию.");
+            System.out.println("Error: You must be authorized to perform this operation.");
             return;
         }
 
-        System.out.println("Все рабочие места:");
+        System.out.println("All coworking spaces:");
         if (coworkingList.isEmpty()) {
-            System.out.println("Нет доступных рабочих мест.");
+            System.out.println("No available coworking spaces.");
         } else {
             for (CoworkingPlace place : coworkingList) {
-                System.out.println(place);  // А
+                System.out.println(place);  // A
             }
         }
     }
 
     public void removeCoworkingPlace(Scanner scanner) {
-        if (!isAuthorized) {  // Проверка на авторизацию
-            System.out.println("Ошибка: для выполнения этой операции нужно пройти авторизацию.");
+        if (!isAuthorized) {  // Authorization check
+            System.out.println("Error: You must be authorized to perform this operation.");
             return;
         }
 
-        System.out.println("Удаление рабочего места:");
+        System.out.println("Removing a coworking space:");
         if (coworkingList.isEmpty()) {
-            System.out.println("Список рабочих мест пуст.");
+            System.out.println("The coworking spaces list is empty.");
             return;
         }
 
-        System.out.print("Введите ID рабочего места для удаления: ");
+        System.out.print("Enter the ID of the coworking space to delete: ");
         int id = scanner.nextInt();
         scanner.nextLine();
         boolean found = false;
@@ -116,36 +116,36 @@ public class AdminMethods {
             CoworkingPlace place = coworkingList.get(i);
             if (place.getId() == id) {
                 coworkingList.remove(i);
-                System.out.println("Рабочее место с ID " + id + " успешно удалено.");
+                System.out.println("Coworking space with ID " + id + " has been successfully deleted.");
                 found = true;
                 break;
             }
         }
 
         if (!found) {
-            System.out.println("Рабочее место с ID " + id + " не найдено.");
+            System.out.println("Coworking space with ID " + id + " not found.");
         }
     }
 
     public void showFreeSpaces(){
         if (!isAuthorized) {
-            System.out.println("Ошибка: для выполнения этой операции нужно пройти авторизацию.");
+            System.out.println("Error: You must be authorized to perform this operation.");
             return;
         }
 
-        System.out.println("Информация о свободных местах:");
+        System.out.println("Information about free spaces:");
         int freeSpacesCount = Report.countFreeSpaces(coworkingList);
-        System.out.println("Свободные места: " + freeSpacesCount);
+        System.out.println("Free spaces: " + freeSpacesCount);
     }
 
     public void showBookedSpaces(){
         if (!isAuthorized) {
-            System.out.println("Ошибка: для выполнения этой операции нужно пройти авторизацию.");
+            System.out.println("Error: You must be authorized to perform this operation.");
             return;
         }
 
-        System.out.println("Информация о занятых местах:");
+        System.out.println("Information about booked spaces:");
         int bookedSpacesCount = Report.countBookedSpaces(coworkingList);
-        System.out.println("Занятые места: " + bookedSpacesCount);
+        System.out.println("Booked spaces: " + bookedSpacesCount);
     }
 }
