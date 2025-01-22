@@ -19,58 +19,58 @@ public class UserMethods {
     }
 
     public void registerUser(Scanner scanner) throws CustomException.NotAuthorizedUser {
-        System.out.println("Регистрация нового пользователя");
+        System.out.println("Registration of a new user");
         UserInfo newUser = new UserInfo(scanner);
         userList.add(newUser);
-        System.out.println("Вы успешно добавили нового пользователя");
+        System.out.println("You have successfully added a new user");
 
-        // Выбрасываем исключение, если список пользователей пуст
+        // Throw an exception if the user list is empty
         if (userList.isEmpty()) {
-            throw new CustomException.NotAuthorizedUser("Вы не прошли регистрацию");
+            throw new CustomException.NotAuthorizedUser("You have not completed registration");
         }
     }
 
     public void loginUser(Scanner scanner) throws CustomException.EmptyUserList {
-        System.out.println("Авторизация пользователя");
+        System.out.println("User login");
 
-        // Если список пользователей пуст, уведомляем об этом
+        // Notify if the user list is empty
         if (userList.isEmpty()) {
-            throw new CustomException.EmptyUserList("Список пользователей пуст. Пройдите регистрацию.");
+            throw new CustomException.EmptyUserList("The user list is empty. Please complete registration.");
         }
 
-        System.out.println("Введите имя");
+        System.out.println("Enter first name");
         String name = scanner.nextLine();
-        System.out.println("Введите фамилию");
+        System.out.println("Enter last name");
         String surname = scanner.nextLine();
-        System.out.println("Введите пароль");
+        System.out.println("Enter password");
         int password = scanner.nextInt();
-        scanner.nextLine();  // Очистка буфера
+        scanner.nextLine();  // Clear the buffer
 
         boolean isAuthorized = false;
 
-        // Проверяем авторизацию пользователя
+        // Check the user login
         for (UserInfo user : userList) {
             if (user.getName().equals(name) && user.getSurname().equals(surname) && user.getPassword() == password) {
-                System.out.println("Рады вас видеть " + name + " " + surname + "!");
+                System.out.println("We are glad to see you, " + name + " " + surname + "!");
                 isAuthorized = true;
                 break;
             }
         }
 
-        // Если не найдено совпадений, выбрасываем исключение
+        // If no match is found, throw an exception
         if (!isAuthorized) {
-            throw new CustomException.EmptyUserList("Пользователь не найден, пройдите регистрацию.");
+            throw new CustomException.EmptyUserList("User not found, please register.");
         }
     }
 
     public void viewAllCoworkingPlaces() {
         ArrayList<CoworkingPlace> coworkingList = adminMethods.getCoworkingList();
         if (coworkingList.isEmpty()) {
-            System.out.println("Нет доступных мест.");
+            System.out.println("No available places.");
             return;
         }
 
-        System.out.println("Доступные места:");
+        System.out.println("Available places:");
         for (CoworkingPlace freePlace : coworkingList) {
             if (freePlace.isAvailable()) {
                 System.out.println(freePlace);
@@ -84,15 +84,15 @@ public class UserMethods {
 
         for (CoworkingPlace place : coworkingList) {
             if (place.isAvailable()) {
-                System.out.println("Резервируем место: " + place);
-                place.setAvailable(false);  // Помечаем место как занятое
+                System.out.println("Reserving place: " + place);
+                place.setAvailable(false);  // Mark the place as booked
                 availablePlaceFound = true;
                 break;
             }
         }
 
         if (!availablePlaceFound) {
-            System.out.println("Нет доступных мест.");
+            System.out.println("No available places.");
         }
     }
 
@@ -107,16 +107,16 @@ public class UserMethods {
                     int password = Integer.parseInt(userData[2]);
                     UserInfo user = new UserInfo(name, surname, password);
                     userList.add(user);
-                    System.out.println("Пользователь добавлен из файла: " + name + " " + surname);
+                    System.out.println("User added from file: " + name + " " + surname);
                 }
             }
         } catch (IOException e) {
-            System.err.println("Ошибка при чтении файла: " + e.getMessage());
+            System.err.println("Error reading the file: " + e.getMessage());
         }
     }
 
     public void cancelReservations(Scanner scanner) {
-        System.out.println("Введите ID рабочего места для отмены бронирования:");
+        System.out.println("Enter the coworking place ID to cancel reservation:");
         int id = scanner.nextInt();
         scanner.nextLine();
 
@@ -124,15 +124,14 @@ public class UserMethods {
         for (CoworkingPlace place : adminMethods.getCoworkingList()) {
             if (place.getId() == id && !place.isAvailable()) {
                 place.setAvailable(true);
-                System.out.println("Резервирование отменено для места с ID " + id);
+                System.out.println("Reservation cancelled for place with ID " + id);
                 found = true;
                 break;
             }
         }
 
         if (!found) {
-            System.out.println("Место с таким ID не найдено или оно не было зарезервировано.");
+            System.out.println("Place with this ID not found or it was not reserved.");
         }
     }
 }
-

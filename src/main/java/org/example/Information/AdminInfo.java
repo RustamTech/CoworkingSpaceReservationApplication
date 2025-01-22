@@ -9,16 +9,16 @@ public class AdminInfo {
 
     // Конструктор, принимающий Scanner для ввода данных
     public AdminInfo(Scanner scanner) {
-        System.out.print("Введите имя: ");
+        System.out.print("Print your name please:");
         this.name = scanner.nextLine();
 
-        System.out.print("Введите фамилию: ");
+        System.out.print("Print your surname please");
         this.surname = scanner.nextLine();
 
-        System.out.print("Введите номер: ");
+        System.out.print("Print your number please:");
         this.number = scanner.nextLine();
 
-        System.out.print("Введите пароль: ");
+        System.out.print("Print your password please:");
         this.password = scanner.nextInt();
         scanner.nextLine();
     }
